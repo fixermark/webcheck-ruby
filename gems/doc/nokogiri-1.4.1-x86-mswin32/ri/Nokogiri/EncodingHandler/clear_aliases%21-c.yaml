@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Remove all encoding aliases.
+full_name: Nokogiri::EncodingHandler::clear_aliases!
+is_singleton: true
+name: clear_aliases!
+params: " Nokogiri::EncodingHandler.clear_aliases!\n"
+visibility: public

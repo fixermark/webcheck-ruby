@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Parse <tt>io</tt> object with <tt>encoding</tt>
+full_name: Nokogiri::XML::SAX::ParserContext::io
+is_singleton: true
+name: io
+params: |
+  parse_io(io, encoding)
+
+visibility: public

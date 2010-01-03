@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Nokogiri::XML::Builder</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Nokogiri::XML::Builder</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/nokogiri/xml/builder_rb.html">
+                lib/nokogiri/xml/builder.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+<a href="../../Nokogiri.html">Nokogiri</a> builder can be used for building
+<a href="../XML.html">XML</a> and <a href="../HTML.html">HTML</a>
+documents.
+</p>
+<h2>Synopsis:</h2>
+<pre>
+  builder = Nokogiri::XML::Builder.new do |xml|
+    xml.root {
+      xml.products {
+        xml.widget {
+          xml.id_ &quot;10&quot;
+          xml.name &quot;Awesome widget&quot;
+        }
+      }
+    }
+  end
+  puts builder.to_xml
+</pre>
+<p>
+Will output:
+</p>
+<pre>
+  &lt;?xml version=&quot;1.0&quot;?&gt;
+  &lt;root&gt;
+    &lt;products&gt;
+      &lt;widget&gt;
+        &lt;id&gt;10&lt;/id&gt;
+        &lt;name&gt;Awesome widget&lt;/name&gt;
+      &lt;/widget&gt;
+    &lt;/products&gt;
+  &lt;/root&gt;
+</pre>
+<h3><a href="Builder.html">Builder</a> scope</h3>
+<p>
+The builder allows two forms. When the builder is supplied <a
+href="Builder.html#M000263">with</a> a block that has a parameter, the
+outside scope is maintained. This means you can access variables that are
+outside your builder. If you don&#8216;t need outside scope, you can use
+the builder without the &quot;xml&quot; prefix like this:
+</p>
+<pre>
+  builder = Nokogiri::XML::Builder.new do
+    root {
+      products {
+        widget {
+          id_ &quot;10&quot;
+          name &quot;Awesome widget&quot;
+        }
+      }
+    }
+  end
+</pre>
+<h2>Special Tags</h2>
+<p>
+The builder works by taking advantage of method_missing. Unfortunately some
+methods are defined in ruby that are difficult or dangerous to remove. You
+may want to create tags <a href="Builder.html#M000263">with</a> the name
+&quot;type&quot;, &quot;class&quot;, and &quot;id&quot; for example. In
+that case, you can use an underscore to disambiguate your tag name from the
+method call.
+</p>
+<p>
+Here is an example of using the underscore to disambiguate tag names from
+ruby methods:
+</p>
+<pre>
+  @objects = [Object.new, Object.new, Object.new]
+
+  builder = Nokogiri::XML::Builder.new do |xml|
+    xml.root {
+      xml.objects {
+        @objects.each do |o|
+          xml.object {
+            xml.type_   o.type
+            xml.class_  o.class.name
+            xml.id_     o.id
+          }
+        end
+      }
+    }
+  end
+  puts builder.to_xml
+</pre>
+<p>
+The underscore may be used <a href="Builder.html#M000263">with</a> any tag
+name, and the last underscore will just be removed. This code will output
+the following <a href="../XML.html">XML</a>:
+</p>
+<pre>
+  &lt;?xml version=&quot;1.0&quot;?&gt;
+  &lt;root&gt;
+    &lt;objects&gt;
+      &lt;object&gt;
+        &lt;type&gt;Object&lt;/type&gt;
+        &lt;class&gt;Object&lt;/class&gt;
+        &lt;id&gt;48390&lt;/id&gt;
+      &lt;/object&gt;
+      &lt;object&gt;
+        &lt;type&gt;Object&lt;/type&gt;
+        &lt;class&gt;Object&lt;/class&gt;
+        &lt;id&gt;48380&lt;/id&gt;
+      &lt;/object&gt;
+      &lt;object&gt;
+        &lt;type&gt;Object&lt;/type&gt;
+        &lt;class&gt;Object&lt;/class&gt;
+        &lt;id&gt;48370&lt;/id&gt;
+      &lt;/object&gt;
+    &lt;/objects&gt;
+  &lt;/root&gt;
+</pre>
+<h2>Tag Attributes</h2>
+<p>
+Tag attributes may be supplied as method arguments. Here is our previous
+example, but using attributes rather than tags:
+</p>
+<pre>
+  @objects = [Object.new, Object.new, Object.new]
+
+  builder = Nokogiri::XML::Builder.new do |xml|
+    xml.root {
+      xml.objects {
+        @objects.each do |o|
+          xml.object(:type =&gt; o.type, :class =&gt; o.class, :id =&gt; o.id)
+        end
+      }
+    }
+  end
+  puts builder.to_xml
+</pre>
+<h3>Tag Attribute Short Cuts</h3>
+<p>
+A couple attribute short cuts are available when building tags. The short
+cuts are available by special method calls when building a tag.
+</p>
+<p>
+This example builds an &quot;object&quot; tag <a
+href="Builder.html#M000263">with</a> the class attribute &quot;classy&quot;
+and the id of &quot;thing&quot;:
+</p>
+<pre>
+  builder = Nokogiri::XML::Builder.new do |xml|
+    xml.root {
+      xml.objects {
+        xml.object.classy.thing!
+      }
+    }
+  end
+  puts builder.to_xml
+</pre>
+<p>
+Which will output:
+</p>
+<pre>
+  &lt;?xml version=&quot;1.0&quot;?&gt;
+  &lt;root&gt;
+    &lt;objects&gt;
+      &lt;object class=&quot;classy&quot; id=&quot;thing&quot;/&gt;
+    &lt;/objects&gt;
+  &lt;/root&gt;
+</pre>
+<p>
+All other options are still supported <a
+href="Builder.html#M000263">with</a> this syntax, including blocks and
+extra tag attributes.
+</p>
+<h2>Namespaces</h2>
+<p>
+Namespaces are added similarly to attributes. <a
+href="Builder.html">Nokogiri::XML::Builder</a> assumes that when an
+attribute starts <a href="Builder.html#M000263">with</a> &quot;xmlns&quot;,
+it is meant to be a namespace:
+</p>
+<pre>
+  builder = Nokogiri::XML::Builder.new { |xml|
+    xml.root('xmlns' =&gt; 'default', 'xmlns:foo' =&gt; 'bar') do
+      xml.tenderlove
+    end
+  }
+  puts builder.to_xml
+</pre>
+<p>
+Will output <a href="../XML.html">XML</a> like this:
+</p>
+<pre>
+  &lt;?xml version=&quot;1.0&quot;?&gt;
+  &lt;root xmlns:foo=&quot;bar&quot; xmlns=&quot;default&quot;&gt;
+    &lt;tenderlove/&gt;
+  &lt;/root&gt;
+</pre>
+<h3>Referencing declared namespaces</h3>
+<p>
+Tags that reference non-default namespaces (i.e. a tag &quot;foo:bar&quot;)
+can be built by using the <a
+href="Builder.html">Nokogiri::XML::Builder</a>#[] method.
+</p>
+<p>
+For example:
+</p>
+<pre>
+  builder = Nokogiri::XML::Builder.new do |xml|
+    xml.root('xmlns:foo' =&gt; 'bar') {
+      xml.objects {
+        xml['foo'].object.classy.thing!
+      }
+    }
+  end
+  puts builder.to_xml
+</pre>
+<p>
+Will output this <a href="../XML.html">XML</a>:
+</p>
+<pre>
+  &lt;?xml version=&quot;1.0&quot;?&gt;
+  &lt;root xmlns:foo=&quot;bar&quot;&gt;
+    &lt;objects&gt;
+      &lt;foo:object class=&quot;classy&quot; id=&quot;thing&quot;/&gt;
+    &lt;/objects&gt;
+  &lt;/root&gt;
+</pre>
+<p>
+Note the &quot;foo:object&quot; tag.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000269">&lt;&lt;</a>&nbsp;&nbsp;
+      <a href="#M000267">[]</a>&nbsp;&nbsp;
+      <a href="#M000266">cdata</a>&nbsp;&nbsp;
+      <a href="#M000264">new</a>&nbsp;&nbsp;
+      <a href="#M000265">text</a>&nbsp;&nbsp;
+      <a href="#M000268">to_xml</a>&nbsp;&nbsp;
+      <a href="#M000263">with</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">context</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+A context object for use when the block has no arguments
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">doc</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+The current <a href="Document.html">Document</a> object being built
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">parent</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+The parent of the current node being built
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000264" class="method-detail">
+        <a name="M000264"></a>
+
+        <div class="method-heading">
+          <a href="Builder.src/M000264.html" target="Code" class="method-signature"
+            onclick="popupCode('Builder.src/M000264.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(options = {}) {|self| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Create a <a href="Builder.html#M000264">new</a> <a
+href="Builder.html">Builder</a> object. <tt>options</tt> are sent to the
+top level <a href="Document.html">Document</a> that is being built.
+</p>
+<p>
+Building a document <a href="Builder.html#M000263">with</a> a particular
+encoding for example:
+</p>
+<pre>
+  Nokogiri::XML::Builder.new(:encoding =&gt; 'UTF-8') do |xml|
+    ...
+  end
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000263" class="method-detail">
+        <a name="M000263"></a>
+
+        <div class="method-heading">
+          <a href="Builder.src/M000263.html" target="Code" class="method-signature"
+            onclick="popupCode('Builder.src/M000263.html');return false;">
+          <span class="method-name">with</span><span class="method-args">(root, &amp;block)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Create a builder <a href="Builder.html#M000263">with</a> an existing root
+object. This is for use when you have an existing document that you would
+like to augment <a href="Builder.html#M000263">with</a> builder methods.
+The builder context created will start <a
+href="Builder.html#M000263">with</a> the given <tt>root</tt> node.
+</p>
+<p>
+For example:
+</p>
+<pre>
+  doc = Nokogiri::XML(open('somedoc.xml'))
+  Nokogiri::XML::Builder.with(doc.at('some_tag')) do |xml|
+    # ... Use normal builder methods here ...
+    xml.awesome # add the &quot;awesome&quot; tag below &quot;some_tag&quot;
+  end
+</pre>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000269" class="method-detail">
+        <a name="M000269"></a>
+
+        <div class="method-heading">
+          <a href="Builder.src/M000269.html" target="Code" class="method-signature"
+            onclick="popupCode('Builder.src/M000269.html');return false;">
+          <span class="method-name">&lt;&lt;</span><span class="method-args">(string)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Append the given raw <a href="../XML.html">XML</a> <tt>string</tt> to the
+document
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000267" class="method-detail">
+        <a name="M000267"></a>
+
+        <div class="method-heading">
+          <a href="Builder.src/M000267.html" target="Code" class="method-signature"
+            onclick="popupCode('Builder.src/M000267.html');return false;">
+          <span class="method-name">[]</span><span class="method-args">(ns)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Build a tag that is associated <a href="Builder.html#M000263">with</a>
+namespace <tt>ns</tt>. Raises an ArgumentError if <tt>ns</tt> has not been
+defined higher in the tree.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000266" class="method-detail">
+        <a name="M000266"></a>
+
+        <div class="method-heading">
+          <a href="Builder.src/M000266.html" target="Code" class="method-signature"
+            onclick="popupCode('Builder.src/M000266.html');return false;">
+          <span class="method-name">cdata</span><span class="method-args">(string)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Create a <a href="CDATA.html">CDATA</a> <a href="Node.html">Node</a> <a
+href="Builder.html#M000263">with</a> content of <tt>string</tt>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000265" class="method-detail">
+        <a name="M000265"></a>
+
+        <div class="method-heading">
+          <a href="Builder.src/M000265.html" target="Code" class="method-signature"
+            onclick="popupCode('Builder.src/M000265.html');return false;">
+          <span class="method-name">text</span><span class="method-args">(string)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Create a <a href="Text.html">Text</a> <a href="Node.html">Node</a> <a
+href="Builder.html#M000263">with</a> content of <tt>string</tt>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000268" class="method-detail">
+        <a name="M000268"></a>
+
+        <div class="method-heading">
+          <a href="Builder.src/M000268.html" target="Code" class="method-signature"
+            onclick="popupCode('Builder.src/M000268.html');return false;">
+          <span class="method-name">to_xml</span><span class="method-args">(*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Convert this <a href="Builder.html">Builder</a> object to <a
+href="../XML.html">XML</a>
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

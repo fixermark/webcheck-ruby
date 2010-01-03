@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Alias encoding handler with name <tt>from</tt> to name <tt>to</tt>
+full_name: Nokogiri::EncodingHandler::alias
+is_singleton: true
+name: alias
+params: " Nokogiri::EncodingHandler.alias(from, to)\n"
+visibility: public

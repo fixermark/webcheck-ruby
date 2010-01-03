@@ -1,0 +1,26 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: This class lets you perform SAX style parsing on HTML with HTML error correction.
+- !ruby/struct:SM::Flow::P 
+  body: "Here is a basic usage example:"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  class MyDoc &lt; Nokogiri::XML::SAX::Document\n    def start_element name, attributes = []\n      puts &quot;found a #{name}&quot;\n    end\n  end\n\n  parser = Nokogiri::HTML::SAX::Parser.new(MyDoc.new)\n  parser.parse(File.read(ARGV[0], 'rb'))\n"
+- !ruby/struct:SM::Flow::P 
+  body: For more information on SAX parsers, see Nokogiri::XML::SAX
+constants: []
+
+full_name: Nokogiri::HTML::SAX::Parser
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: parse_file
+- !ruby/object:RI::MethodSummary 
+  name: parse_memory
+name: Parser
+superclass: Nokogiri::XML::SAX::Parser

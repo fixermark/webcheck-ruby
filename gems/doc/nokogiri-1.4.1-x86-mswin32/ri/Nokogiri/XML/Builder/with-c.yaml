@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Create a builder with an existing root object. This is for use when you have an existing document that you would like to augment with builder methods. The builder context created will start with the given <tt>root</tt> node.
+- !ruby/struct:SM::Flow::P 
+  body: "For example:"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  doc = Nokogiri::XML(open('somedoc.xml'))\n  Nokogiri::XML::Builder.with(doc.at('some_tag')) do |xml|\n    # ... Use normal builder methods here ...\n    xml.awesome # add the &quot;awesome&quot; tag below &quot;some_tag&quot;\n  end\n"
+full_name: Nokogiri::XML::Builder::with
+is_singleton: true
+name: with
+params: (root, &block)
+visibility: public

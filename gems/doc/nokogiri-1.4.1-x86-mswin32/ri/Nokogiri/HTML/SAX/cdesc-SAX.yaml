@@ -1,0 +1,17 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: I srsly hate windows. it doesn't have vasprintf. Thank you Geoffroy Couprie for this implementation of vasprintf!
+constants: []
+
+full_name: Nokogiri::HTML::SAX
+includes: []
+
+instance_methods: []
+
+name: SAX
+superclass: 

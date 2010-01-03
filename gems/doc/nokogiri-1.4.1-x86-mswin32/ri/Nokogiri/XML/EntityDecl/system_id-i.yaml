@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Get the URI for a SYSTEM or PUBLIC Entity
+full_name: Nokogiri::XML::EntityDecl#system_id
+is_singleton: false
+name: system_id
+params: |
+  system_id
+
+visibility: public

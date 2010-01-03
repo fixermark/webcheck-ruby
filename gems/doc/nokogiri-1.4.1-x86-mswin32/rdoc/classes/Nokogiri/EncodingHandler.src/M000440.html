@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>[] (Nokogiri::EncodingHandler)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq: Nokogiri::EncodingHandler.[](name)
+ *
+ * Get the encoding handler for +name+
+ */
+static VALUE get(VALUE klass, VALUE key)
+{
+  xmlCharEncodingHandlerPtr handler;
+
+  handler = xmlFindCharEncodingHandler(StringValuePtr(key));
+  if(handler)
+    return Data_Wrap_Struct(klass, NULL, NULL, handler);
+
+  return Qnil;
+}</pre>
+</body>
+</html>

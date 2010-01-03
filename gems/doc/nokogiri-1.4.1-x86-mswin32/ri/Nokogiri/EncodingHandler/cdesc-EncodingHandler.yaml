@@ -1,0 +1,27 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: "[]"
+- !ruby/object:RI::MethodSummary 
+  name: alias
+- !ruby/object:RI::MethodSummary 
+  name: clear_aliases!
+- !ruby/object:RI::MethodSummary 
+  name: delete
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "call-seq: name"
+- !ruby/struct:SM::Flow::P 
+  body: Get the name of this EncodingHandler
+constants: []
+
+full_name: Nokogiri::EncodingHandler
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: name
+name: EncodingHandler
+superclass: Object

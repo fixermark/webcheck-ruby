@@ -1,0 +1,32 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "call-seq:"
+- !ruby/struct:SM::Flow::VERB 
+  body: " system_id\n"
+- !ruby/struct:SM::Flow::P 
+  body: Get the URI for a SYSTEM or PUBLIC Entity
+constants: []
+
+full_name: Nokogiri::XML::EntityDecl
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: content
+- !ruby/object:RI::MethodSummary 
+  name: entity_type
+- !ruby/object:RI::MethodSummary 
+  name: external_id
+- !ruby/object:RI::MethodSummary 
+  name: inspect
+- !ruby/object:RI::MethodSummary 
+  name: original_content
+- !ruby/object:RI::MethodSummary 
+  name: system_id
+name: EntityDecl
+superclass: Nokogiri::XML::Node

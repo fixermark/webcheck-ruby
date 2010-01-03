@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Get the External ID for this DTD
+full_name: Nokogiri::XML::DTD#external_id
+is_singleton: false
+name: external_id
+params: |
+  external_id
+
+visibility: public

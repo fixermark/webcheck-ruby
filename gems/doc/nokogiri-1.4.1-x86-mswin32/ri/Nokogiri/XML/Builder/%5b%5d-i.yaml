@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Build a tag that is associated with namespace <tt>ns</tt>. Raises an ArgumentError if <tt>ns</tt> has not been defined higher in the tree.
+full_name: Nokogiri::XML::Builder#[]
+is_singleton: false
+name: "[]"
+params: (ns)
+visibility: public

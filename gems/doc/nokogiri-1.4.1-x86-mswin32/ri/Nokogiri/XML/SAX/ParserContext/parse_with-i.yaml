@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Use <tt>sax_handler</tt> and parse the current document
+full_name: Nokogiri::XML::SAX::ParserContext#parse_with
+is_singleton: false
+name: parse_with
+params: |
+  parse_with(sax_handler)
+
+visibility: public

@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Read the contents of the current node, including child nodes and markup.
+full_name: Nokogiri::XML::Reader#inner_xml
+is_singleton: false
+name: inner_xml
+params: |
+  inner_xml
+
+visibility: public

@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Search this node for the first occurrence of CSS <tt>rules</tt>. Equivalent to <tt>css(rules).first</tt> See Node#css for more information.
+full_name: Nokogiri::XML::Node#at_css
+is_singleton: false
+name: at_css
+params: (*rules)
+visibility: public

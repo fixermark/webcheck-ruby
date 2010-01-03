@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Convert this DocumentFragment to xml See Nokogiri::XML::NodeSet#to_xml
+full_name: Nokogiri::XML::DocumentFragment#to_xml
+is_singleton: false
+name: to_xml
+params: (*args)
+visibility: public

@@ -1,0 +1,28 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "call-seq:"
+- !ruby/struct:SM::Flow::VERB 
+  body: " enumeration\n"
+- !ruby/struct:SM::Flow::P 
+  body: An enumeration of possible values
+constants: []
+
+full_name: Nokogiri::XML::AttributeDecl
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: attribute_type
+- !ruby/object:RI::MethodSummary 
+  name: default
+- !ruby/object:RI::MethodSummary 
+  name: enumeration
+- !ruby/object:RI::MethodSummary 
+  name: inspect
+name: AttributeDecl
+superclass: Nokogiri::XML::Node

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>remove_namespaces! (Nokogiri::XML::Document)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ *  call-seq:
+ *    remove_namespaces!
+ *
+ *  Remove all namespaces from all nodes in the document.
+ *
+ *  This could be useful for developers who either don't understand namespaces
+ *  or don't care about them.
+ *
+ *  The following example shows a use case, and you can decide for yourself
+ *  whether this is a good thing or not:
+ *
+ *    doc = Nokogiri::XML &lt;&lt;-EOXML
+ *       &lt;root&gt;
+ *         &lt;car xmlns:part=&quot;http://general-motors.com/&quot;&gt;
+ *           &lt;part:tire&gt;Michelin Model XGV&lt;/part:tire&gt;
+ *         &lt;/car&gt;
+ *         &lt;bicycle xmlns:part=&quot;http://schwinn.com/&quot;&gt;
+ *           &lt;part:tire&gt;I'm a bicycle tire!&lt;/part:tire&gt;
+ *         &lt;/bicycle&gt;
+ *       &lt;/root&gt;
+ *       EOXML
+ *    
+ *    doc.xpath(&quot;//tire&quot;).to_s # =&gt; &quot;&quot;
+ *    doc.xpath(&quot;//part:tire&quot;, &quot;part&quot; =&gt; &quot;http://general-motors.com/&quot;).to_s # =&gt; &quot;&lt;part:tire&gt;Michelin Model XGV&lt;/part:tire&gt;&quot;
+ *    doc.xpath(&quot;//part:tire&quot;, &quot;part&quot; =&gt; &quot;http://schwinn.com/&quot;).to_s # =&gt; &quot;&lt;part:tire&gt;I'm a bicycle tire!&lt;/part:tire&gt;&quot;
+ *    
+ *    doc.remove_namespaces!
+ *    
+ *    doc.xpath(&quot;//tire&quot;).to_s # =&gt; &quot;&lt;tire&gt;Michelin Model XGV&lt;/tire&gt;&lt;tire&gt;I'm a bicycle tire!&lt;/tire&gt;&quot;
+ *    doc.xpath(&quot;//part:tire&quot;, &quot;part&quot; =&gt; &quot;http://general-motors.com/&quot;).to_s # =&gt; &quot;&quot;
+ *    doc.xpath(&quot;//part:tire&quot;, &quot;part&quot; =&gt; &quot;http://schwinn.com/&quot;).to_s # =&gt; &quot;&quot;
+ *
+ *  For more information on why this probably is *not* a good thing in general,
+ *  please direct your browser to
+ *  http://tenderlovemaking.com/2009/04/23/namespaces-in-xml/
+ */
+VALUE remove_namespaces_bang(VALUE self)
+{
+  xmlDocPtr doc ;
+  Data_Get_Struct(self, xmlDoc, doc);
+
+  recursively_remove_namespaces_from_node((xmlNodePtr)doc);
+  return self;
+}</pre>
+</body>
+</html>

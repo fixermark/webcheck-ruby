@@ -1,0 +1,17 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: this class only exists to create a xmlFree() finalizer
+constants: []
+
+full_name: Nokogiri::LibXML::XmlAlloc
+includes: []
+
+instance_methods: []
+
+name: XmlAlloc
+superclass: FFI::ManagedStruct

@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Nokogiri::HTML::Document</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Nokogiri::HTML::Document</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/nokogiri/ffi/html/document_rb.html">
+                lib/nokogiri/ffi/html/document.rb
+                </a>
+        <br />
+                <a href="../../../files/lib/nokogiri/html/document_rb.html">
+                lib/nokogiri/html/document.rb
+                </a>
+        <br />
+                <a href="../../../files/ext/nokogiri/html_document_c.html">
+                ext/nokogiri/html_document.c
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                XML::Document
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+call-seq:
+</p>
+<pre>
+ type
+</pre>
+<p>
+The <a href="Document.html#M000042">type</a> for this document
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000037">fragment</a>&nbsp;&nbsp;
+      <a href="#M000034">meta_encoding</a>&nbsp;&nbsp;
+      <a href="#M000035">meta_encoding=</a>&nbsp;&nbsp;
+      <a href="#M000041">new</a>&nbsp;&nbsp;
+      <a href="#M000038">parse</a>&nbsp;&nbsp;
+      <a href="#M000040">read_io</a>&nbsp;&nbsp;
+      <a href="#M000039">read_memory</a>&nbsp;&nbsp;
+      <a href="#M000036">serialize</a>&nbsp;&nbsp;
+      <a href="#M000042">type</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000041" class="method-detail">
+        <a name="M000041"></a>
+
+        <div class="method-heading">
+          <a href="Document.src/M000041.html" target="Code" class="method-signature"
+            onclick="popupCode('Document.src/M000041.html');return false;">
+          <span class="method-name">new<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Create a <a href="Document.html#M000041">new</a> document
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000038" class="method-detail">
+        <a name="M000038"></a>
+
+        <div class="method-heading">
+          <a href="Document.src/M000038.html" target="Code" class="method-signature"
+            onclick="popupCode('Document.src/M000038.html');return false;">
+          <span class="method-name">parse</span><span class="method-args">(string_or_io, url = nil, encoding = nil, options = XML::ParseOptions::DEFAULT_HTML) {|options if block_given?| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Parse <a href="../HTML.html">HTML</a>. <tt>thing</tt> may be a String, or
+any object that responds to <em>read</em> and <em>close</em> such as an IO,
+or StringIO. <tt>url</tt> is resource where this document is located.
+<tt>encoding</tt> is the encoding that should be used when processing the
+document. <tt>options</tt> is a number that sets options in the parser,
+such as Nokogiri::XML::ParseOptions::RECOVER. See the constants in <a
+href="../XML/ParseOptions.html">Nokogiri::XML::ParseOptions</a>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000040" class="method-detail">
+        <a name="M000040"></a>
+
+        <div class="method-heading">
+          <a href="Document.src/M000040.html" target="Code" class="method-signature"
+            onclick="popupCode('Document.src/M000040.html');return false;">
+          <span class="method-name">read_io(io, url, encoding, options)<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Read the <a href="../HTML.html">HTML</a> document from <tt>io</tt> with
+given <tt>url</tt>, <tt>encoding</tt>, and <tt>options</tt>. See <a
+href="../HTML.html#M000008">Nokogiri::HTML.parse</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000039" class="method-detail">
+        <a name="M000039"></a>
+
+        <div class="method-heading">
+          <a href="Document.src/M000039.html" target="Code" class="method-signature"
+            onclick="popupCode('Document.src/M000039.html');return false;">
+          <span class="method-name">read_memory(string, url, encoding, options)<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Read the <a href="../HTML.html">HTML</a> document contained in
+<tt>string</tt> with given <tt>url</tt>, <tt>encoding</tt>, and
+<tt>options</tt>. See <a
+href="../HTML.html#M000008">Nokogiri::HTML.parse</a>
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000037" class="method-detail">
+        <a name="M000037"></a>
+
+        <div class="method-heading">
+          <a href="Document.src/M000037.html" target="Code" class="method-signature"
+            onclick="popupCode('Document.src/M000037.html');return false;">
+          <span class="method-name">fragment</span><span class="method-args">(tags = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Create a <a
+href="../XML/DocumentFragment.html">Nokogiri::XML::DocumentFragment</a>
+from <tt>tags</tt>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000034" class="method-detail">
+        <a name="M000034"></a>
+
+        <div class="method-heading">
+          <a href="Document.src/M000034.html" target="Code" class="method-signature"
+            onclick="popupCode('Document.src/M000034.html');return false;">
+          <span class="method-name">meta_encoding</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Get the meta tag encoding for this document. If there is no meta tag, then
+nil is returned
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000035" class="method-detail">
+        <a name="M000035"></a>
+
+        <div class="method-heading">
+          <a href="Document.src/M000035.html" target="Code" class="method-signature"
+            onclick="popupCode('Document.src/M000035.html');return false;">
+          <span class="method-name">meta_encoding=</span><span class="method-args">(encoding)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the meta tag encoding for this document. If there is no meta content
+tag, nil is returned and the encoding is not set.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000036" class="method-detail">
+        <a name="M000036"></a>
+
+        <div class="method-heading">
+          <a href="Document.src/M000036.html" target="Code" class="method-signature"
+            onclick="popupCode('Document.src/M000036.html');return false;">
+          <span class="method-name">serialize</span><span class="method-args">(options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Serialize Node using <tt>options</tt>. Save options can also be set using a
+block. See SaveOptions.
+</p>
+<p>
+These two statements are equivalent:
+</p>
+<pre>
+ node.serialize(:encoding =&gt; 'UTF-8', :save_with =&gt; FORMAT | AS_XML)
+</pre>
+<p>
+or
+</p>
+<pre>
+  node.serialize(:encoding =&gt; 'UTF-8') do |config|
+    config.format.as_xml
+  end
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000042" class="method-detail">
+        <a name="M000042"></a>
+
+        <div class="method-heading">
+          <a href="Document.src/M000042.html" target="Code" class="method-signature"
+            onclick="popupCode('Document.src/M000042.html');return false;">
+          <span class="method-name">type<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The <a href="Document.html#M000042">type</a> for this document
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

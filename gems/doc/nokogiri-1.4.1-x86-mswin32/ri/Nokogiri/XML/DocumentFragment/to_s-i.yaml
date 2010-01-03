@@ -1,0 +1,13 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: 
+- !ruby/object:RI::AliasName 
+  name: serialize
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Convert this DocumentFragment to a string
+full_name: Nokogiri::XML::DocumentFragment#to_s
+is_singleton: false
+name: to_s
+params: ()
+visibility: public

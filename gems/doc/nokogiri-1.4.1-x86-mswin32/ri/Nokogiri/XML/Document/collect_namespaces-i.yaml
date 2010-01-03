@@ -1,0 +1,26 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Recursively get all namespaces from this node and its subtree and return them as a hash.
+- !ruby/struct:SM::Flow::P 
+  body: "For example, given this document:"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  &lt;root xmlns:foo=&quot;bar&quot;&gt;\n    &lt;bar xmlns:hello=&quot;world&quot; /&gt;\n  &lt;/root&gt;\n"
+- !ruby/struct:SM::Flow::P 
+  body: "This method will return:"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  { 'xmlns:foo' =&gt; 'bar', 'xmlns:hello' =&gt; 'world' }\n"
+- !ruby/struct:SM::Flow::P 
+  body: "WARNING: this method will clobber duplicate names in the keys. For example, given this document:"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  &lt;root xmlns:foo=&quot;bar&quot;&gt;\n    &lt;bar xmlns:foo=&quot;baz&quot; /&gt;\n  &lt;/root&gt;\n"
+- !ruby/struct:SM::Flow::P 
+  body: "The hash returned will look like this: { 'xmlns:foo' =&gt; 'bar' }"
+full_name: Nokogiri::XML::Document#collect_namespaces
+is_singleton: false
+name: collect_namespaces
+params: ()
+visibility: public

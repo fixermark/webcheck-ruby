@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Filter this list for nodes that match <tt>expr</tt>
+full_name: Nokogiri::XML::NodeSet#filter
+is_singleton: false
+name: filter
+params: (expr)
+visibility: public

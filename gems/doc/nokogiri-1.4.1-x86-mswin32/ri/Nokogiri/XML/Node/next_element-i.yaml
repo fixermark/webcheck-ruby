@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns the next Nokogiri::XML::Element type sibling node.
+full_name: Nokogiri::XML::Node#next_element
+is_singleton: false
+name: next_element
+params: |
+  next_element
+
+visibility: public

@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Get the XML version for this Document
+full_name: Nokogiri::XML::Document#version
+is_singleton: false
+name: version
+params: |
+  version
+
+visibility: public

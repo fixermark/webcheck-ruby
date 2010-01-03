@@ -1,0 +1,22 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Remove all namespaces from all nodes in the document.
+- !ruby/struct:SM::Flow::P 
+  body: This could be useful for developers who either don't understand namespaces or don't care about them.
+- !ruby/struct:SM::Flow::P 
+  body: "The following example shows a use case, and you can decide for yourself whether this is a good thing or not:"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  doc = Nokogiri::XML &lt;&lt;-EOXML\n     &lt;root&gt;\n       &lt;car xmlns:part=&quot;http://general-motors.com/&quot;&gt;\n         &lt;part:tire&gt;Michelin Model XGV&lt;/part:tire&gt;\n       &lt;/car&gt;\n       &lt;bicycle xmlns:part=&quot;http://schwinn.com/&quot;&gt;\n         &lt;part:tire&gt;I'm a bicycle tire!&lt;/part:tire&gt;\n       &lt;/bicycle&gt;\n     &lt;/root&gt;\n     EOXML\n\n  doc.xpath(&quot;//tire&quot;).to_s # =&gt; &quot;&quot;\n  doc.xpath(&quot;//part:tire&quot;, &quot;part&quot; =&gt; &quot;http://general-motors.com/&quot;).to_s # =&gt; &quot;&lt;part:tire&gt;Michelin Model XGV&lt;/part:tire&gt;&quot;\n  doc.xpath(&quot;//part:tire&quot;, &quot;part&quot; =&gt; &quot;http://schwinn.com/&quot;).to_s # =&gt; &quot;&lt;part:tire&gt;I'm a bicycle tire!&lt;/part:tire&gt;&quot;\n\n  doc.remove_namespaces!\n\n  doc.xpath(&quot;//tire&quot;).to_s # =&gt; &quot;&lt;tire&gt;Michelin Model XGV&lt;/tire&gt;&lt;tire&gt;I'm a bicycle tire!&lt;/tire&gt;&quot;\n  doc.xpath(&quot;//part:tire&quot;, &quot;part&quot; =&gt; &quot;http://general-motors.com/&quot;).to_s # =&gt; &quot;&quot;\n  doc.xpath(&quot;//part:tire&quot;, &quot;part&quot; =&gt; &quot;http://schwinn.com/&quot;).to_s # =&gt; &quot;&quot;\n"
+- !ruby/struct:SM::Flow::P 
+  body: For more information on why this probably is <b>not</b> a good thing in general, please direct your browser to http://tenderlovemaking.com/2009/04/23/namespaces-in-xml/
+full_name: Nokogiri::XML::Document#remove_namespaces!
+is_singleton: false
+name: remove_namespaces!
+params: |
+  remove_namespaces!
+
+visibility: public

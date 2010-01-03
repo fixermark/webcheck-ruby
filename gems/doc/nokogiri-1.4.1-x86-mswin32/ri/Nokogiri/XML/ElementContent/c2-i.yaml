@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Get the first child.
+full_name: Nokogiri::XML::ElementContent#c2
+is_singleton: false
+name: c2
+params: |
+  c2
+
+visibility: public

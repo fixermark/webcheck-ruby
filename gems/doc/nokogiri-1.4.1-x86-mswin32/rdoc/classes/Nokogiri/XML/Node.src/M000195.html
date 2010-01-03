@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>create_external_subset (Nokogiri::XML::Node)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *  create_external_subset(name, external_id, system_id)
+ *
+ * Create an external subset
+ */
+static VALUE create_external_subset(VALUE self, VALUE name, VALUE external_id, VALUE system_id)
+{
+  xmlNodePtr node;
+  xmlDocPtr doc;
+  Data_Get_Struct(self, xmlNode, node);
+
+  doc = node-&gt;doc;
+
+  if(doc-&gt;extSubset)
+    rb_raise(rb_eRuntimeError, &quot;Document already has an external subset&quot;);
+
+  xmlDtdPtr dtd = xmlNewDtd(
+      doc, 
+      NIL_P(name)        ? NULL : (const xmlChar *)StringValuePtr(name),
+      NIL_P(external_id) ? NULL : (const xmlChar *)StringValuePtr(external_id),
+      NIL_P(system_id)   ? NULL : (const xmlChar *)StringValuePtr(system_id)
+  );
+
+  if(!dtd) return Qnil;
+
+  return Nokogiri_wrap_xml_node(Qnil, (xmlNodePtr)dtd);
+}</pre>
+</body>
+</html>

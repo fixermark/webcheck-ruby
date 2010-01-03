@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: XSD::XMLParser::Nokogiri#end_element_namespace
+is_singleton: false
+name: end_element_namespace
+params: (name, prefix = nil, uri = nil)
+visibility: public

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>replace_entities (Nokogiri::XML::SAX::ParserContext)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *  replace_entities
+ *
+ * Should this parser replace entities?  &amp;amp; will get converted to '&amp;' if
+ * set to true
+ */
+static VALUE get_replace_entities(VALUE self)
+{
+  xmlParserCtxtPtr ctxt;
+  Data_Get_Struct(self, xmlParserCtxt, ctxt);
+
+  if(0 == ctxt-&gt;replaceEntities)
+    return Qfalse;
+  else
+    return Qtrue;
+}</pre>
+</body>
+</html>

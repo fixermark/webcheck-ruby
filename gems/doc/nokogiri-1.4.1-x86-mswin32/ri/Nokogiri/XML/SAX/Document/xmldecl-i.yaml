@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Called when an XML declaration is parsed
+full_name: Nokogiri::XML::SAX::Document#xmldecl
+is_singleton: false
+name: xmldecl
+params: (version, encoding, standalone)
+visibility: public

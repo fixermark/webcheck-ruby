@@ -1,0 +1,15 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+constants: []
+
+full_name: Nokogiri::LibXML::XmlXpathParserContext
+includes: []
+
+instance_methods: []
+
+name: XmlXpathParserContext
+superclass: FFI::Struct

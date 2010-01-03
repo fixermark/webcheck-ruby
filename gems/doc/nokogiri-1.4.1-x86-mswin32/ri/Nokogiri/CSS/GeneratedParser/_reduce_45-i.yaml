@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: reduce 44 omitted
+full_name: Nokogiri::CSS::GeneratedParser#_reduce_45
+is_singleton: false
+name: _reduce_45
+params: (val, _values, result)
+visibility: public

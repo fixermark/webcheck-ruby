@@ -1,0 +1,72 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  name: document
+  rw: R
+class_methods: []
+
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "call-seq:"
+- !ruby/struct:SM::Flow::VERB 
+  body: " prefix\n"
+- !ruby/struct:SM::Flow::P 
+  body: Get the element content namespace <tt>prefix</tt>.
+constants: 
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: Possible definitions of type
+  name: PCDATA
+  value: "1"
+- !ruby/object:RI::Constant 
+  comment: 
+  name: ELEMENT
+  value: "2"
+- !ruby/object:RI::Constant 
+  comment: 
+  name: SEQ
+  value: "3"
+- !ruby/object:RI::Constant 
+  comment: 
+  name: OR
+  value: "4"
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: Possible content occurrences
+  name: ONCE
+  value: "1"
+- !ruby/object:RI::Constant 
+  comment: 
+  name: OPT
+  value: "2"
+- !ruby/object:RI::Constant 
+  comment: 
+  name: MULT
+  value: "3"
+- !ruby/object:RI::Constant 
+  comment: 
+  name: PLUS
+  value: "4"
+full_name: Nokogiri::XML::ElementContent
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: c1
+- !ruby/object:RI::MethodSummary 
+  name: c2
+- !ruby/object:RI::MethodSummary 
+  name: children
+- !ruby/object:RI::MethodSummary 
+  name: name
+- !ruby/object:RI::MethodSummary 
+  name: occur
+- !ruby/object:RI::MethodSummary 
+  name: prefix
+- !ruby/object:RI::MethodSummary 
+  name: type
+name: ElementContent
+superclass: Object

@@ -1,0 +1,17 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: use at the point of creation, so we can be sure the document will be GCed properly
+constants: []
+
+full_name: Nokogiri::LibXML::XmlDocument
+includes: []
+
+instance_methods: []
+
+name: XmlDocument
+superclass: FFI::ManagedStruct

@@ -57,6 +57,7 @@ class Webcheck
   end
 
   attr_reader :crawled,:toCrawl,:pages404,:pages200,:unhandledCodes
+  
   def initialize(startURI)
     @crawled = {}
     @toCrawl = []
@@ -64,24 +65,8 @@ class Webcheck
     @pages200 = []
     @unhandledCodes = []
     @startURI=URI(startURI)
+    @toCrawl << @startURI
   end
-  
-  def getCrawled
-	@crawled
-  end
-  
-  def getToCrawl
-	@toCrawl
-  end
-  
-  def getPages404
-	@pages404
-  end
-  
-  def getPages200
-	@pages200
-  end
-
 
   # crawl a single page, updating the internal notions 
   # of which pages 404 and which pages
@@ -106,4 +91,14 @@ class Webcheck
       @unhandledCodes << [uri,code]
     end
   end
+  
+  # crawl all pages not yet crawled,
+  # stopping when we run out
+  def crawl
+    while not @toCrawl.empty?
+      crawlThis=@toCrawl.pop()
+      crawlOne(crawlThis)
+    end
+  end
+  
 end

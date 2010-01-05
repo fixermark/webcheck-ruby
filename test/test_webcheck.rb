@@ -84,5 +84,12 @@ EOF
     assert checker.pages404.empty?
     assert checker.pages200.include?(URI("http://localhost:3001/tests/test_crawl_one/index.htm"))   
   end
-	
+  
+  def test_crawl
+    checker=Webcheck::new("http://localhost:3001/tests/test_crawl/index.htm")
+    checker.crawl()
+    assert checker.pages200.include?(URI("http://localhost:3001/tests/test_crawl/index.htm"))
+    assert checker.pages200.include?(URI("http://localhost:3001/tests/test_crawl/exists.htm"))
+    assert checker.pages404.include?(URI("http://localhost:3001/tests/test_crawl/should404.htm"))
+  end
 end

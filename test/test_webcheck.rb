@@ -42,4 +42,25 @@ EOF
     assert_equal "404",code
     assert_nil links
   end
+
+  def test_convert_rel_abs
+    relativeURLs=[
+      "http://google.com",
+      "target1.htm",
+      "../target2.htm",
+      "d2/target3.htm",
+      "/target4.htm",
+      "mailto:me@example.com"
+    ]
+    absoluteURLs=Webcheck::convertToAbsolute(
+      relativeURLs,
+      URI("http://example.com/d1/base.htm")
+    )
+    assert absoluteURLs.include?(URI("http://google.com"))
+    assert absoluteURLs.include?(URI("http://example.com/d1/target1.htm"))
+    assert absoluteURLs.include?(URI("http://example.com/target2.htm"))
+    assert absoluteURLs.include?(URI("http://example.com/d1/d2/target3.htm"))
+    assert absoluteURLs.include?(URI("http://example.com/target4.htm"))
+    assert absoluteURLs.include?(URI("mailto:me@example.com"))
+  end
 end

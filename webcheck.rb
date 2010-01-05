@@ -32,13 +32,41 @@ class Webcheck
     return req.code,self.getLinks(req.body)
   end
 
+  # convert relative URLs(strings) to absolute URLs
+  # (URIs), filling in information from the base URI
+  # as needed
+  #
+  # * urls - array of string urls
+  # * baseURI - the URI to use as the base for relative
+  #   resolution
+  # return: array of absolute URIs
+  def self.convertToAbsolute(urls,baseURI)
+    result=[]
+    urls.each {|url|
+      newURI=URI(url)
+      if newURI.relative?
+        if url[0]=="/"[0]
+	  newURI=URI("http://" + baseURI.host + url)
+        else
+	  newURI=baseURI + newURI
+        end
+      end
+      result << newURI
+    }
+    return result
+  end
+
   def initialize(startURI)
     @crawled = {}
     @toCrawl = []
     @pages404 = []
     @pages200 = []
+    @startURI=URI(startURI)
   end
   
+
+
+
   # crawl a single page, updating the internal notions 
   # of 
   def crawlOne(uri)

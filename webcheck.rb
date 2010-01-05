@@ -56,29 +56,54 @@ class Webcheck
     return result
   end
 
+  attr_reader :crawled,:toCrawl,:pages404,:pages200,:unhandledCodes
   def initialize(startURI)
     @crawled = {}
     @toCrawl = []
     @pages404 = []
     @pages200 = []
+    @unhandledCodes = []
     @startURI=URI(startURI)
   end
   
-
+  def getCrawled
+	@crawled
+  end
+  
+  def getToCrawl
+	@toCrawl
+  end
+  
+  def getPages404
+	@pages404
+  end
+  
+  def getPages200
+	@pages200
+  end
 
 
   # crawl a single page, updating the internal notions 
-  # of 
+  # of which pages 404 and which pages
+  # have not yet been seen
+  #
+  # * uri - The URI to crawl
   def crawlOne(uri)
+    @crawled[uri]=true
+    code,links = Webcheck::getLinksFromPage(uri)
+    
+    if code=="404"
+      @pages404 << uri
+    elsif code=="200"
+      @pages200 << uri
+      links=Webcheck::convertToAbsolute(links,uri)
+      links.each {|link|
+        if @crawled[link] == nil
+          @toCrawl << link
+        end
+      }
+    else
+      @unhandledCodes << [uri,code]
+    end
   end
-  
 end
-
-#doc = Nokogiri::HTML(
-#    #open('http://foundation.kappachapter.org/index.html')
-#)
-
-#doc.css('a').each do |link|
-#  puts link['href']
-#end
-

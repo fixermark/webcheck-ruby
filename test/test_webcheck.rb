@@ -62,5 +62,27 @@ EOF
     assert absoluteURLs.include?(URI("http://example.com/d1/d2/target3.htm"))
     assert absoluteURLs.include?(URI("http://example.com/target4.htm"))
     assert absoluteURLs.include?(URI("mailto:me@example.com"))
+  
+	absoluteURLs=Webcheck::convertToAbsolute(
+	  relativeURLs,
+	  URI("http://example.com")
+	)
+	assert absoluteURLs.include?(URI("http://google.com"))
+	assert absoluteURLs.include?(URI("http://example.com/target1.htm"))
+	assert absoluteURLs.include?(URI("http://example.com/../target2.htm"))
+	assert absoluteURLs.include?(URI("http://example.com/d2/target3.htm"))
+	assert absoluteURLs.include?(URI("http://example.com/target4.htm"))
+	assert absoluteURLs.include?(URI("mailto:me@example.com"))
   end
+	
+  def test_crawl_one
+    checker=Webcheck::new("http://localhost:3001/tests/test_crawl_one/")
+    checker.crawlOne(URI("http://localhost:3001/tests/test_crawl_one/index.htm"))
+    assert checker.crawled.include?(URI("http://localhost:3001/tests/test_crawl_one/index.htm"))
+    assert checker.toCrawl.include?(URI("http://localhost:3001/tests/test_crawl_one/exists.htm"))
+    assert checker.toCrawl.include?(URI("http://localhost:3001/tests/test_crawl_one/should404.htm"))
+    assert checker.pages404.empty?
+    assert checker.pages200.include?(URI("http://localhost:3001/tests/test_crawl_one/index.htm"))   
+  end
+	
 end

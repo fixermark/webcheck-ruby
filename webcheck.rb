@@ -92,12 +92,24 @@ class Webcheck
     end
   end
   
+  # crawl the next page that hasn't
+  # been crawled
+  #
+  # return: true if crawling should
+  # continue, false otherwise
+  def crawlNext
+    if @toCrawl.empty?
+      return false
+    end
+    crawlThis=@toCrawl.pop()
+    crawlOne(crawlThis)
+    return true
+  end
+  
   # crawl all pages not yet crawled,
   # stopping when we run out
   def crawl
-    while not @toCrawl.empty?
-      crawlThis=@toCrawl.pop()
-      crawlOne(crawlThis)
+    while crawlNext
     end
   end
   

@@ -20,6 +20,9 @@ class TC_Webcheck < Test::Unit::TestCase
   </body>
   </html>
 EOF
+  def uriFromTest(path)
+    URI("http://localhost:3001/tests/"+path)
+  end
 
   def test_url_extractor
     links = Webcheck::getLinks(TestHTML)
@@ -76,20 +79,20 @@ EOF
   end
 	
   def test_crawl_one
-    checker=Webcheck::new("http://localhost:3001/tests/test_crawl_one/")
-    checker.crawlOne(URI("http://localhost:3001/tests/test_crawl_one/index.htm"))
-    assert checker.crawled.include?(URI("http://localhost:3001/tests/test_crawl_one/index.htm"))
-    assert checker.toCrawl.include?(URI("http://localhost:3001/tests/test_crawl_one/exists.htm"))
-    assert checker.toCrawl.include?(URI("http://localhost:3001/tests/test_crawl_one/should404.htm"))
+    checker=Webcheck::new(uriFromTest("test_crawl_one/"))
+    checker.crawlOne(uriFromTest("test_crawl_one/index.htm"))
+    assert checker.crawled.include?(uriFromTest("test_crawl_one/index.htm"))
+    assert checker.toCrawl.include?(uriFromTest("test_crawl_one/exists.htm"))
+    assert checker.toCrawl.include?(uriFromTest("test_crawl_one/should404.htm"))
     assert checker.pages404.empty?
-    assert checker.pages200.include?(URI("http://localhost:3001/tests/test_crawl_one/index.htm"))   
+    assert checker.pages200.include?(uriFromTest("test_crawl_one/index.htm"))   
   end
   
   def test_crawl
     checker=Webcheck::new("http://localhost:3001/tests/test_crawl/index.htm")
     checker.crawl()
-    assert checker.pages200.include?(URI("http://localhost:3001/tests/test_crawl/index.htm"))
-    assert checker.pages200.include?(URI("http://localhost:3001/tests/test_crawl/exists.htm"))
-    assert checker.pages404.include?(URI("http://localhost:3001/tests/test_crawl/should404.htm"))
+    assert checker.pages200.include?(uriFromTest("test_crawl/index.htm"))
+    assert checker.pages200.include?(uriFromTest("test_crawl/exists.htm"))
+    assert checker.pages404.include?(uriFromTest("test_crawl/should404.htm"))
   end
 end

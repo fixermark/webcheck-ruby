@@ -7,3 +7,4 @@ def is404(urlString)
   }
   return req.code == "404"
 end
+

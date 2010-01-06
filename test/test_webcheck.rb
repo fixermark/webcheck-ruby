@@ -95,4 +95,11 @@ EOF
     assert checker.pages200.include?(uriFromTest("test_crawl/exists.htm"))
     assert checker.pages404.include?(uriFromTest("test_crawl/should404.htm"))
   end
+  
+  def test_crawl_no_cycles
+    # TODO: Test that validates mutually-referential pages don't back-crawl  
+  end
+  
+  def test_crawl_no_outbound
+    # TODO: Test that validates outbound links aren't crawled
 end

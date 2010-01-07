@@ -68,6 +68,10 @@ class Webcheck
     @toCrawl << @startURI
   end
 
+  def inDomain?(uri,domainURI)
+      uri.host == domainURI.host
+  end
+
   # crawl a single page, updating the internal notions 
   # of which pages 404 and which pages
   # have not yet been seen
@@ -83,7 +87,7 @@ class Webcheck
       @pages200 << uri
       links=Webcheck::convertToAbsolute(links,uri)
       links.each {|link|
-        if @crawled[link] == nil
+        if @crawled[link] == nil and inDomain?(link,@startURI)
           @toCrawl << link
         end
       }

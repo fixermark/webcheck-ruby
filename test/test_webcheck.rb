@@ -110,7 +110,10 @@ EOF
   end
   
   def test_crawl_no_outbound
-    # TODO: Test that validates outbound links aren't crawled
+    checker=Webcheck::new(uriFromTest("test_crawl_no_outbound/index.htm").to_s)
+    checker.crawlNext
+    assert checker.pages200.include?(uriFromTest("test_crawl_no_outbound/index.htm"))
+    assert checker.toCrawl.empty?    
   end
 
   def test_crawl_html_only

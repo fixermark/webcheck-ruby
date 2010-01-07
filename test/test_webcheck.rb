@@ -115,9 +115,4 @@ EOF
     assert checker.pages200.include?(uriFromTest("test_crawl_no_outbound/index.htm"))
     assert checker.toCrawl.empty?    
   end
-
-  def test_crawl_html_only
-    # TODO: Test that validates non-HTML file types aren't opened
-    #       and crawled
-  end
 end

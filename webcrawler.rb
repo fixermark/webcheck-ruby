@@ -2,7 +2,7 @@ require 'net/http'
 require 'uri' 
 require 'nokogiri'
 
-class Webcheck
+class Webcrawler
 
   # Retrieve a list of all the links from the specified HTML
   # * html - The source to parse
@@ -79,13 +79,13 @@ class Webcheck
   # * uri - The URI to crawl
   def crawlOne(uri)
     @crawled[uri]=true
-    code,links = Webcheck::getLinksFromPage(uri)
+    code,links = Webcrawler::getLinksFromPage(uri)
     
     if code=="404"
       @pages404 << uri
     elsif code=="200"
       @pages200 << uri
-      links=Webcheck::convertToAbsolute(links,uri)
+      links=Webcrawler::convertToAbsolute(links,uri)
       links.each {|link|
         if @crawled[link] == nil and inDomain?(link,@startURI)
           @toCrawl << link

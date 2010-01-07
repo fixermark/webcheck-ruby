@@ -1,9 +1,9 @@
 require 'test/unit'
 require 'uri'
 require '_base'
-require 'webcheck'
+require 'webcrawler'
 
-class TC_Webcheck < Test::Unit::TestCase
+class TC_Webcrawler < Test::Unit::TestCase
   
   TestHTML=
 <<EOF
@@ -25,7 +25,7 @@ EOF
   end
 
   def test_url_extractor
-    links = Webcheck::getLinks(TestHTML)
+    links = Webcrawler::getLinks(TestHTML)
     assert links.include?("http://example.com/test.htm")
     assert links.include?("test2.htm")
     assert links.include?("/index.htm")
@@ -33,7 +33,7 @@ EOF
   end
   
   def test_url_retriever_200
-    code,links = Webcheck::getLinksFromPage(URI("http://localhost:3001/tests/url_retriever/test.htm"))
+    code,links = Webcrawler::getLinksFromPage(URI("http://localhost:3001/tests/url_retriever/test.htm"))
     assert_equal "200",code
     assert links.include?("one.htm")
     assert links.include?("http://example.com/two.htm")
@@ -41,7 +41,7 @@ EOF
   end
 
   def test_url_retriever_404
-    code,links = Webcheck::getLinksFromPage(URI("http://localhost:3001/tests/url_retriever/nonexistant.htm"))
+    code,links = Webcrawler::getLinksFromPage(URI("http://localhost:3001/tests/url_retriever/nonexistant.htm"))
     assert_equal "404",code
     assert_nil links
   end
@@ -55,7 +55,7 @@ EOF
       "/target4.htm",
       "mailto:me@example.com"
     ]
-    absoluteURLs=Webcheck::convertToAbsolute(
+    absoluteURLs=Webcrawler::convertToAbsolute(
       relativeURLs,
       URI("http://example.com/d1/base.htm")
     )
@@ -66,7 +66,7 @@ EOF
     assert absoluteURLs.include?(URI("http://example.com/target4.htm"))
     assert absoluteURLs.include?(URI("mailto:me@example.com"))
   
-	absoluteURLs=Webcheck::convertToAbsolute(
+	absoluteURLs=Webcrawler::convertToAbsolute(
 	  relativeURLs,
 	  URI("http://example.com")
 	)
@@ -79,7 +79,7 @@ EOF
   end
 	
   def test_crawl_one
-    checker=Webcheck::new(uriFromTest("test_crawl_one/").to_s)
+    checker=Webcrawler::new(uriFromTest("test_crawl_one/").to_s)
     checker.crawlOne(uriFromTest("test_crawl_one/index.htm"))
     assert checker.crawled.include?(uriFromTest("test_crawl_one/index.htm"))
     assert checker.toCrawl.include?(uriFromTest("test_crawl_one/exists.htm"))
@@ -89,7 +89,7 @@ EOF
   end
   
   def test_crawl
-    checker=Webcheck::new("http://localhost:3001/tests/test_crawl/index.htm")
+    checker=Webcrawler::new("http://localhost:3001/tests/test_crawl/index.htm")
     checker.crawl()
     assert checker.pages200.include?(uriFromTest("test_crawl/index.htm"))
     assert checker.pages200.include?(uriFromTest("test_crawl/exists.htm"))
@@ -98,7 +98,7 @@ EOF
   
   def test_crawl_no_cycles
     # TODO: Test that validates mutually-referential pages don't back-crawl
-    checker=Webcheck::new(uriFromTest("test_crawl_no_cycles/index.htm").to_s)
+    checker=Webcrawler::new(uriFromTest("test_crawl_no_cycles/index.htm").to_s)
     checker.crawlNext
     assert checker.toCrawl.include?(uriFromTest("test_crawl_no_cycles/rosencrantz.htm"))
     checker.crawlNext
@@ -110,7 +110,7 @@ EOF
   end
   
   def test_crawl_no_outbound
-    checker=Webcheck::new(uriFromTest("test_crawl_no_outbound/index.htm").to_s)
+    checker=Webcrawler::new(uriFromTest("test_crawl_no_outbound/index.htm").to_s)
     checker.crawlNext
     assert checker.pages200.include?(uriFromTest("test_crawl_no_outbound/index.htm"))
     assert checker.toCrawl.empty?    

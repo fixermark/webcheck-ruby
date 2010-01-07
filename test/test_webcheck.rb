@@ -79,7 +79,7 @@ EOF
   end
 	
   def test_crawl_one
-    checker=Webcheck::new(uriFromTest("test_crawl_one/"))
+    checker=Webcheck::new(uriFromTest("test_crawl_one/").to_s)
     checker.crawlOne(uriFromTest("test_crawl_one/index.htm"))
     assert checker.crawled.include?(uriFromTest("test_crawl_one/index.htm"))
     assert checker.toCrawl.include?(uriFromTest("test_crawl_one/exists.htm"))
@@ -97,9 +97,24 @@ EOF
   end
   
   def test_crawl_no_cycles
-    # TODO: Test that validates mutually-referential pages don't back-crawl  
+    # TODO: Test that validates mutually-referential pages don't back-crawl
+    checker=Webcheck::new(uriFromTest("test_crawl_no_cycles/index.htm").to_s)
+    checker.crawlNext
+    assert checker.toCrawl.include?(uriFromTest("test_crawl_no_cycles/rosencrantz.htm"))
+    checker.crawlNext
+    assert checker.toCrawl.include?(uriFromTest("test_crawl_no_cycles/guildenstern.htm"))
+    checker.crawlNext
+    assert checker.crawled.include?(uriFromTest("test_crawl_no_cycles/guildenstern.htm"))
+    assert checker.pages404.empty?
+    assert checker.toCrawl.empty?
   end
   
   def test_crawl_no_outbound
     # TODO: Test that validates outbound links aren't crawled
+  end
+
+  def test_crawl_html_only
+    # TODO: Test that validates non-HTML file types aren't opened
+    #       and crawled
+  end
 end

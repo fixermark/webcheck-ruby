@@ -29,7 +29,7 @@ class Webcrawler
   def crawlOne(uri)
     @crawled[uri]=true
     req = retrievePage(uri)
-    newURIs = yield(req)
+    newURIs = yield(uri,req)
     newURIs.each{|link|
       if @crawled[link] == nil
         @toCrawl << link

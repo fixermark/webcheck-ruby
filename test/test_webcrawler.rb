@@ -2,7 +2,6 @@ require 'test/unit'
 require 'uri'
 require '_base'
 require 'webcrawler'
-require 'nokogiri'
 
 class TC_Webcrawler < Test::Unit::TestCase
   def test_crawl_one
@@ -31,11 +30,24 @@ class TC_Webcrawler < Test::Unit::TestCase
     assert checker.toCrawl.empty?
   end
   
-  #def test_crawl
-  #  checker=Webcrawler::new("http://localhost:3001/tests/test_crawl/index.htm")
-  #  checker.crawl()
-  #  assert checker.pages200.include?(uriFromTest("test_crawl/index.htm"))
-  #  assert checker.pages200.include?(uriFromTest("test_crawl/exists.htm"))
-  #  assert checker.pages404.include?(uriFromTest("test_crawl/should404.htm"))
-  #end
+  def test_crawl
+    checker=Webcrawler::new(uriFromTest("test_crawl/index.htm").to_s)
+    my400s=[]
+    my200s=[]
+    checker.crawl {|uri,req|
+      if req.code=="200"
+        my200s << uri
+      end
+      if req.code=="404"
+        my404s << uri
+      end
+      if uri==uriFromTest("test_crawl/index.htm")
+        return [uriFromTest("test_crawl/exists.htm"),uriFromTest("test_crawl/should404.htm")]
+      end
+      return []
+    }
+    assert my200s.include?(uriFromTest("test_crawl/index.htm"))
+    assert my200s.include?(uriFromTest("test_crawl/exists.htm"))
+    assert my404s.include?(uriFromTest("test_crawl/should404.htm"))  
+  end
 end

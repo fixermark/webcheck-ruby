@@ -8,3 +8,6 @@ def is404(urlString)
   return req.code == "404"
 end
 
+def uriFromTest(path)
+  URI("http://localhost:3001/tests/"+path)
+end

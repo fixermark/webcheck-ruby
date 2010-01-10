@@ -28,6 +28,21 @@ class TC_ConsistencyChecker < Test::Unit::TestCase
     assert checker.checked.include?(uriFromTest("url_retriever/nonexistant.htm"))
   end
   
+  def test_301
+    checker=ConsistencyChecker.new(
+      @linkfinder,
+      uriFromTest("url_retriever/redirected.htm")
+    )
+    res=Response.new
+    res.code="301"
+    res.body=nil
+    checker.check(uriFromTest("url_retriever/redirected.htm"),res)
+    
+    assert_equal checker.urisUnknown[0][:code], "301"    
+    assert_equal checker.urisUnknown[0][:uri], uriFromTest("url_retriever/redirected.htm")
+    assert checker.checked.include?(uriFromTest("url_retriever/redirected.htm"))
+  end
+  
   def test_200
     checker=ConsistencyChecker.new(
       @linkfinder,

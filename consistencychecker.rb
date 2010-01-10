@@ -16,8 +16,7 @@ class ConsistencyChecker
     if res.code=="404"
       @uris404 << uri
       return []
-    end
-    if res.code=="200"
+    elsif res.code=="200"
       @uris200 << uri
       links = @linkfinder.getLinks(res.body)
       # TODO: relative to absolute
@@ -28,6 +27,8 @@ class ConsistencyChecker
         result << link
       }
       return result
+    else
+      @urisUnknown << {:code => res.code, :uri => uri}
     end
     return []
    end

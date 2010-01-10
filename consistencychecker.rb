@@ -11,11 +11,22 @@ class ConsistencyChecker
     @linkfinder=linkfinder
     @baseURI=baseURI
    end
-   def check(uri,req)
+   def check(uri,res)
     @checked[uri]=true
-    if req.code=="404"
+    if res.code=="404"
       @uris404 << uri
       return []
+    end
+    if res.code=="200"
+      @uris200 << uri
+      links = @linkfinder.getLinks(res.body)
+      # TODO: relative to absolute
+      # TODO: filter outbound?
+      result=[]
+      links.each {|link|
+        result << URI(link)
+      }
+      return result
     end
     return []
    end

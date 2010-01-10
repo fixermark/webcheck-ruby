@@ -53,4 +53,28 @@ EOF
     assert checker.checked.include?(uriFromTest("url_retriever/test.htm"))
     assert result.include?(uriFromTest("url_retriever/testA.htm"))
   end
+  def test_absolute_url
+    checker=ConsistencyChecker.new(
+      @linkfinder,
+      uriFromTest("url_retriever/test.htm")
+    )
+    res=Response.new
+    res.code="200"
+    res.body=<<EOF
+<html>
+<head>
+<title>Consistency checker -- 200 result code test</title>
+</head>
+<body>
+<p>This is a test of the consistency checker.</p>
+<a href="testB.htm">Test 2</a>
+<a href="mailto:test@example.com">E-mail URL test</a>
+</body>
+</html>
+EOF
+    
+    result=checker.check(uriFromTest("url_retriever/test.htm"),res)
+    assert result.include?(uriFromTest("url_retriever/testB.htm"))
+    assert result.include?(URI("mailto:test@example.com"))
+  end
 end

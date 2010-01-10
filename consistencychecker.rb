@@ -22,9 +22,10 @@ class ConsistencyChecker
       links = @linkfinder.getLinks(res.body)
       # TODO: relative to absolute
       # TODO: filter outbound?
+      links=@linkfinder.convertToAbsolute(links,uri)
       result=[]
-      links.each {|link|
-        result << URI(link)
+      links.each {|link|  
+        result << link
       }
       return result
     end

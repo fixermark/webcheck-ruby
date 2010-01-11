@@ -13,6 +13,14 @@ class ConsistencyChecker
     @linkfinder=linkfinder
     @baseURI=baseURI
    end
+
+   # Check the page and update the buffers with information retrieved from 
+   # the page
+   # 
+   # uri: The URI of the page we are checking
+   # res: A net/HTTP response object
+   #
+   # return: list of URIs to check next
    def check(uri,res)
     @results[:checked][uri]=true
     if res.code=="404"

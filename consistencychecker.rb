@@ -18,6 +18,9 @@ class ConsistencyChecker
       return []
     elsif res.code=="200"
       @uris200 << uri
+      if uri.host != @baseURI.host
+      	 return []
+      end
       links = @linkfinder.getLinks(res.body)
       # TODO: relative to absolute
       # TODO: filter outbound?

@@ -68,6 +68,7 @@ EOF
     assert checker.checked.include?(uriFromTest("url_retriever/test.htm"))
     assert result.include?(uriFromTest("url_retriever/testA.htm"))
   end
+
   def test_absolute_url
     checker=ConsistencyChecker.new(
       @linkfinder,
@@ -91,5 +92,30 @@ EOF
     result=checker.check(uriFromTest("url_retriever/test.htm"),res)
     assert result.include?(uriFromTest("url_retriever/testB.htm"))
     assert result.include?(URI("mailto:test@example.com"))
+  end
+
+  # Resources from foreign links are requested to verify they do not 404,
+  # but they are not crawled
+  
+  def test_outbound_link
+    checker=ConsistencyChecker.new(
+      @linkfinder,
+      uriFromTest("url_retriever/test.htm")
+    )
+    res=Response.new
+    res.code="200"
+    res.body=<<EOF
+<html>
+<head>
+<title>Consistency checker -- foreign domain test</title>
+</head>
+<body>
+<p>This is an example.com domain.</p>
+<a href="testB.htm">Test 2</a>
+</body>
+</html>
+EOF
+    result=checker.check(URI("http://www.example.com"),res)
+    assert result.empty?
   end
 end

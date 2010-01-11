@@ -1,23 +1,25 @@
  # Basic consistency checker---finds 404s and 200s
  
 class ConsistencyChecker
-  attr_reader :uris404,:uris200,:urisUnknown,:checked
+  attr_reader :results
 
    def initialize(linkfinder,baseURI)
-    @uris404=[]
-    @uris200=[]
-    @urisUnknown=[]
-    @checked={}
+    @results={
+      :uris404=>[],
+      :uris200=>[],
+      :urisUnknown=>[],
+      :checked=>{}
+    }
     @linkfinder=linkfinder
     @baseURI=baseURI
    end
    def check(uri,res)
-    @checked[uri]=true
+    @results[:checked][uri]=true
     if res.code=="404"
-      @uris404 << uri
+      @results[:uris404] << uri
       return []
     elsif res.code=="200"
-      @uris200 << uri
+      @results[:uris200] << uri
       if uri.host != @baseURI.host
       	 return []
       end
@@ -25,13 +27,13 @@ class ConsistencyChecker
       # TODO: relative to absolute
       # TODO: filter outbound?
       links=@linkfinder.convertToAbsolute(links,uri)
-      result=[]
+      returnedLinks=[]
       links.each {|link|  
-        result << link
+        returnedLinks << link
       }
-      return result
+      return returnedLinks
     else
-      @urisUnknown << {:code => res.code, :uri => uri}
+      results[:urisUnknown] << {:code => res.code, :uri => uri}
     end
     return []
    end

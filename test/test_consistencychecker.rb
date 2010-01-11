@@ -22,10 +22,10 @@ class TC_ConsistencyChecker < Test::Unit::TestCase
     res.code="404"
     res.body=nil
     checker.check(uriFromTest("url_retriever/nonexistant.htm"),res)
-    
-    assert checker.uris404.include?(uriFromTest("url_retriever/nonexistant.htm"))
-    assert_equal checker.uris200.empty?,true
-    assert checker.checked.include?(uriFromTest("url_retriever/nonexistant.htm"))
+    results=checker.results
+    assert results[:uris404].include?(uriFromTest("url_retriever/nonexistant.htm"))
+    assert_equal results[:uris200].empty?,true
+    assert results[:checked].include?(uriFromTest("url_retriever/nonexistant.htm"))
   end
   
   def test_301
@@ -37,10 +37,10 @@ class TC_ConsistencyChecker < Test::Unit::TestCase
     res.code="301"
     res.body=nil
     checker.check(uriFromTest("url_retriever/redirected.htm"),res)
-    
-    assert_equal checker.urisUnknown[0][:code], "301"    
-    assert_equal checker.urisUnknown[0][:uri], uriFromTest("url_retriever/redirected.htm")
-    assert checker.checked.include?(uriFromTest("url_retriever/redirected.htm"))
+    results=checker.results
+    assert_equal results[:urisUnknown][0][:code], "301"    
+    assert_equal results[:urisUnknown][0][:uri], uriFromTest("url_retriever/redirected.htm")
+    assert results[:checked].include?(uriFromTest("url_retriever/redirected.htm"))
   end
   
   def test_200
@@ -62,11 +62,12 @@ class TC_ConsistencyChecker < Test::Unit::TestCase
 </html>
 EOF
     
-    result=checker.check(uriFromTest("url_retriever/test.htm"),res)
-    assert_equal checker.uris404.empty?,true
-    assert checker.uris200.include?(uriFromTest("url_retriever/test.htm"))
-    assert checker.checked.include?(uriFromTest("url_retriever/test.htm"))
-    assert result.include?(uriFromTest("url_retriever/testA.htm"))
+    links=checker.check(uriFromTest("url_retriever/test.htm"),res)
+    results=checker.results
+    assert_equal results[:uris404].empty?,true
+    assert results[:uris200].include?(uriFromTest("url_retriever/test.htm"))
+    assert results[:checked].include?(uriFromTest("url_retriever/test.htm"))
+    assert links.include?(uriFromTest("url_retriever/testA.htm"))
   end
 
   def test_absolute_url
@@ -89,9 +90,9 @@ EOF
 </html>
 EOF
     
-    result=checker.check(uriFromTest("url_retriever/test.htm"),res)
-    assert result.include?(uriFromTest("url_retriever/testB.htm"))
-    assert result.include?(URI("mailto:test@example.com"))
+    links=checker.check(uriFromTest("url_retriever/test.htm"),res)
+    assert links.include?(uriFromTest("url_retriever/testB.htm"))
+    assert links.include?(URI("mailto:test@example.com"))
   end
 
   # Resources from foreign links are requested to verify they do not 404,
@@ -115,7 +116,7 @@ EOF
 </body>
 </html>
 EOF
-    result=checker.check(URI("http://www.example.com"),res)
-    assert result.empty?
+    links=checker.check(URI("http://www.example.com"),res)
+    assert links.empty?
   end
 end

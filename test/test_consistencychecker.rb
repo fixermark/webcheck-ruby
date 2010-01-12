@@ -92,7 +92,6 @@ EOF
     
     links=checker.check(uriFromTest("url_retriever/test.htm"),res)
     assert links.include?(uriFromTest("url_retriever/testB.htm"))
-    assert links.include?(URI("mailto:test@example.com"))
   end
 
   # Resources from foreign links are requested to verify they do not 404,
@@ -118,5 +117,28 @@ EOF
 EOF
     links=checker.check(URI("http://www.example.com"),res)
     assert links.empty?
+  end
+
+  def test_non_http
+    checker=ConsistencyChecker.new(
+      @linkfinder,
+      URI("http://example.com/test.htm")
+    )
+    res=Response.new
+    res.code="200"
+    res.body=<<EOF
+<html>
+<head>
+<title>Consistency checker -- mailto link test</title>
+</head>
+<body>
+<p>This is an example.com domain.</p>
+<a href="mailto:test@example.com">e-mail me</a>
+</body>
+</html>
+EOF
+    links=checker.check(URI("http://example.com/index.htm"),res)
+    assert links.empty?
+    assert_equal URI("mailto:test@example.com"), checker.results[:urisNonHTTP][0] 
   end
 end

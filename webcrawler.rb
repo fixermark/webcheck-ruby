@@ -9,7 +9,11 @@ class Webcrawler
   # returns: the HTTP request
   def retrievePage(uri)
     Net::HTTP::start(uri.host,uri.port) {|http|
-      http.get(uri.path)
+      path=uri.path
+      if path==nil
+        path="/"
+      end
+      http.get(path)
     }
   end
 
@@ -18,7 +22,7 @@ class Webcrawler
   def initialize(startURI)
     @crawled = {}
     @toCrawl = []
-    @startURI=URI(startURI)
+    @startURI=startURI
     @toCrawl << @startURI
   end
 

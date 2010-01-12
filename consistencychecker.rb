@@ -8,7 +8,8 @@ class ConsistencyChecker
       :uris404=>[],
       :uris200=>[],
       :urisUnknown=>[],
-      :checked=>{}
+      :checked=>{},
+      :urisNonHTTP=>[]
     }
     @linkfinder=linkfinder
     @baseURI=baseURI
@@ -32,16 +33,18 @@ class ConsistencyChecker
       	 return []
       end
       links = @linkfinder.getLinks(res.body)
-      # TODO: relative to absolute
-      # TODO: filter outbound?
       links=@linkfinder.convertToAbsolute(links,uri)
       returnedLinks=[]
       links.each {|link|  
-        returnedLinks << link
+        if link.scheme != "http"
+	  @results[:urisNonHTTP] << link
+	else
+          returnedLinks << link
+	end
       }
       return returnedLinks
     else
-      results[:urisUnknown] << {:code => res.code, :uri => uri}
+      @results[:urisUnknown] << {:code => res.code, :uri => uri}
     end
     return []
    end

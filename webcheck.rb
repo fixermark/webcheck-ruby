@@ -8,14 +8,25 @@ require 'uri'
 
 class Webcheck
   def check(uri)
-    if uri.class ~= URI
+    if uri.class == String
        uri=URI(uri)
     end
     crawler=Webcrawler.new(uri)
     linkfinder=Linkfinder.new
-    checker=Consistencychecker.new(linkfinder,uri)
+    checker=ConsistencyChecker.new(linkfinder,uri)
     crawler.crawl {|uri,res|
       checker.check(uri,res)
     }
     checker.results
+  end
+  def prettyPrint(results)
+    print "404s:\n"
+    results[:uris404].each {|item|
+      print "  ",item,"\n"
+    }
+    print "pages checked:\n"
+    results[:urisUnknown].each {|item|
+      print "  ",item,"\n"
+    }
+  end
 end

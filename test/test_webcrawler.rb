@@ -5,7 +5,7 @@ require 'webcrawler'
 
 class TC_Webcrawler < Test::Unit::TestCase
   def test_crawl_one
-    checker=Webcrawler::new(uriFromTest("test_crawl_one/").to_s)
+    checker=Webcrawler::new(uriFromTest("test_crawl_one/"))
     checker.crawlOne(uriFromTest("test_crawl_one/index.htm")) {|uri,req|
       assert_equal req.code,"200"
       [URI("success.htm")]
@@ -15,7 +15,7 @@ class TC_Webcrawler < Test::Unit::TestCase
   end
 
   def test_crawl_no_cycles
-    checker=Webcrawler::new(uriFromTest("test_crawl_no_cycles/index.htm").to_s)
+    checker=Webcrawler::new(uriFromTest("test_crawl_no_cycles/index.htm"))
     checker.crawlNext {|uri,req|
       [uriFromTest("test_crawl_no_cycles/testA.htm")]
     }
@@ -31,7 +31,7 @@ class TC_Webcrawler < Test::Unit::TestCase
   end
   
   def test_crawl
-    checker=Webcrawler::new(uriFromTest("test_crawl/index.htm").to_s)
+    checker=Webcrawler::new(uriFromTest("test_crawl/index.htm"))
     my400s=[]
     my200s=[]
     checker.crawl {|uri,req|

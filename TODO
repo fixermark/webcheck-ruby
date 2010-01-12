@@ -1,0 +1,4 @@
+TODO: 
+
+* I appear to be seeing cycles in the test run when I do a full crawl of foundation.kappachapter.org. Verify the cycle-checker test
+* Add a chattiness option to Webcheck (and webcrawler) that can enable / disable message reporting (verbosity controller)

@@ -18,7 +18,7 @@ suite << TC_Environ.suite
 suite << TC_Linkfinder.suite
 suite << TC_Webcrawler.suite
 suite << TC_ConsistencyChecker.suite
-#suite << TC_Webcheck.suite
+suite << TC_Webcheck.suite
 Test::Unit::UI::Console::TestRunner.run(suite)
 
 # Finished testing

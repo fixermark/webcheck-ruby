@@ -8,9 +8,10 @@ class Webcrawler
   # * uri - The URL to open (as a URI)
   # returns: the HTTP request
   def retrievePage(uri)
+    print "Retrieving ",uri,"\n"
     Net::HTTP::start(uri.host,uri.port) {|http|
       path=uri.path
-      if path==nil
+      if path==nil or path==""
         path="/"
       end
       http.get(path)

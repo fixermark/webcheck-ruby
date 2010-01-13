@@ -9,18 +9,25 @@ class TC_ConsistencyChecker < Test::Unit::TestCase
     @linkfinder=Linkfinder.new
   end
 
+
+
   class Response
     attr_accessor :code, :body
   end
   
+  def newResponse(params)
+    response=Response.new
+    response.code=params[:code] || "200"
+    response.body=params[:body]
+    response
+  end
+
   def test_404
     checker=ConsistencyChecker.new(
       @linkfinder,
       uriFromTest("url_retriever/nonexistant.htm")
     )
-    res=Response.new
-    res.code="404"
-    res.body=nil
+    res=newResponse :code=>'404'
     checker.check(uriFromTest("url_retriever/nonexistant.htm"),res)
     results=checker.results
     assert results[:uris404].include?(uriFromTest("url_retriever/nonexistant.htm"))
@@ -33,9 +40,7 @@ class TC_ConsistencyChecker < Test::Unit::TestCase
       @linkfinder,
       uriFromTest("url_retriever/redirected.htm")
     )
-    res=Response.new
-    res.code="301"
-    res.body=nil
+    res=newResponse :code=>'301'
     checker.check(uriFromTest("url_retriever/redirected.htm"),res)
     results=checker.results
     assert_equal results[:urisUnknown][0][:code], "301"    
@@ -48,9 +53,7 @@ class TC_ConsistencyChecker < Test::Unit::TestCase
       @linkfinder,
       uriFromTest("url_retriever/test.htm")
     )
-    res=Response.new
-    res.code="200"
-    res.body=<<EOF
+    res=newResponse :body=> <<EOF
 <html>
 <head>
 <title>Consistency checker -- 200 result code test</title>
@@ -75,9 +78,7 @@ EOF
       @linkfinder,
       uriFromTest("url_retriever/test.htm")
     )
-    res=Response.new
-    res.code="200"
-    res.body=<<EOF
+    res=newResponse :body=> <<EOF
 <html>
 <head>
 <title>Consistency checker -- 200 result code test</title>
@@ -102,9 +103,7 @@ EOF
       @linkfinder,
       uriFromTest("url_retriever/test.htm")
     )
-    res=Response.new
-    res.code="200"
-    res.body=<<EOF
+    res=newResponse :body=> <<EOF
 <html>
 <head>
 <title>Consistency checker -- foreign domain test</title>
@@ -124,9 +123,7 @@ EOF
       @linkfinder,
       URI("http://example.com/test.htm")
     )
-    res=Response.new
-    res.code="200"
-    res.body=<<EOF
+    res=newResponse :body=> <<EOF
 <html>
 <head>
 <title>Consistency checker -- mailto link test</title>
@@ -147,9 +144,7 @@ EOF
       @linkfinder,
       URI("http://example.com/docA.htm")
     )
-    res1=Response.new
-    res1.code="200"
-    res1.body=<<EOF
+    res1=newResponse :body=> <<EOF
 <html>
 <head>
 <title>Consistency checker -- cycle link test -- document A</title>
@@ -160,9 +155,7 @@ EOF
 </body>
 </html>
 EOF
-    res2=Response.new
-    res2.code="200"
-    res2.body=<<EOF
+    res2=newResponse :body=> <<EOF
 <html>
 <head>
 <title>Consistency checker -- cycle link test -- document A</title>

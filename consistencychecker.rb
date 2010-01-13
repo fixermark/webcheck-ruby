@@ -40,6 +40,7 @@ class ConsistencyChecker
 	  @results[:urisNonHTTP] << link
 	else
 	  if not @results[:checked].include? link
+            @results[:checked][link]=true
             returnedLinks << link
           end
 	end

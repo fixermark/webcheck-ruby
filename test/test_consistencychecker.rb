@@ -141,4 +141,41 @@ EOF
     assert links.empty?
     assert_equal URI("mailto:test@example.com"), checker.results[:urisNonHTTP][0] 
   end
+
+  def test_cycle
+    checker=ConsistencyChecker.new(
+      @linkfinder,
+      URI("http://example.com/docA.htm")
+    )
+    res1=Response.new
+    res1.code="200"
+    res1.body=<<EOF
+<html>
+<head>
+<title>Consistency checker -- cycle link test -- document A</title>
+</head>
+<body>
+<p>This is an example.com domain.</p>
+<a href="http://example.com/docB.htm">To doc B</a>
+</body>
+</html>
+EOF
+    res2=Response.new
+    res2.code="200"
+    res2.body=<<EOF
+<html>
+<head>
+<title>Consistency checker -- cycle link test -- document A</title>
+</head>
+<body>
+<p>This is an example.com domain.</p>
+<a href="http://example.com/docA.htm">To doc A</a>
+</body>
+</html>
+EOF
+    links=checker.check(URI("http://example.com/docA.htm"),res1)
+    links2=checker.check(URI("http://example.com/docB.htm"),res2)
+    assert links.include?(URI("http://example.com/docB.htm"))
+    assert links2.empty?
+  end
 end

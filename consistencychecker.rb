@@ -39,7 +39,9 @@ class ConsistencyChecker
         if link.scheme != "http"
 	  @results[:urisNonHTTP] << link
 	else
-          returnedLinks << link
+	  if not @results[:checked].include? link
+            returnedLinks << link
+          end
 	end
       }
       return returnedLinks

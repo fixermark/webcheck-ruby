@@ -35,7 +35,7 @@ class TC_ConsistencyChecker < Test::Unit::TestCase
     response=Response.new
     response.code=params[:code] || "200"
     response.body=params[:body]
-    response['content-type'] = 'text/html'
+    response['content-type'] = params[:contentType] || 'text/html'
     return response
   end
 
@@ -187,5 +187,25 @@ EOF
     links2=checker.check(URI("http://example.com/docB.htm"),res2)
     assert links.include?(URI("http://example.com/docB.htm"))
     assert links2.empty?
+  end
+
+  def test_image
+    checker=ConsistencyChecker.new(
+      @linkfinder,
+      URI("http://example.com/img.gif")
+    )
+    res=newResponse :contentType=>'image/gif',
+    :body => <<EOF
+<html>
+<head><title>Test - not HTML at all!</title></head>
+<body>
+<a href="http://example.com/we_should_not_see_this.html">Shouldn't see this!</a>
+</body>
+</html>
+EOF
+
+    links=checker.check(URI("http://example.com/img.gif"),res)
+    assert links.empty?
+    assert checker.results[:checked].include?(URI("http://example.com/img.gif"))
   end
 end

@@ -29,7 +29,7 @@ class ConsistencyChecker
       return []
     elsif res.code=="200"
       @results[:uris200] << uri
-      if uri.host != @baseURI.host
+      if uri.host != @baseURI.host or res['content-type'] != 'text/html'
       	 return []
       end
       links = @linkfinder.getLinks(res.body)

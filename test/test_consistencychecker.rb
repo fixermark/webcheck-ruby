@@ -13,13 +13,30 @@ class TC_ConsistencyChecker < Test::Unit::TestCase
 
   class Response
     attr_accessor :code, :body
+    def initialize
+      @header={}
+    end	
+
+    def [](key)
+      a = @header[key.downcase] or return nil
+      a.join(', ')
+    end
+
+    def []=(key,val)
+      unless val
+        @header.delete key.downcase
+        return val
+      end
+      @header[key.downcase]=[val]
+    end
   end
   
   def newResponse(params)
     response=Response.new
     response.code=params[:code] || "200"
     response.body=params[:body]
-    response
+    response['content-type'] = 'text/html'
+    return response
   end
 
   def test_404

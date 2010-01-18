@@ -4,9 +4,9 @@ require 'uri'
 # Locates all of the hyperlinks in the body of an HTML document
 class Linkfinder
   
-  # Retrieve a list of all the links from the specified HTML
-  # * html - The source to parse
-  # returns: All found links, raw, as an Array
+  # Retrieve an array of all the links from the specified HTML document. The
+  # links may be either relative or absolute.
+  # 
   def getLinks(html)
     doc = Nokogiri::HTML(html)
     result = Array.new
@@ -20,10 +20,9 @@ class Linkfinder
   # (URIs), filling in information from the base URI
   # as needed
   #
-  # * urls - array of string urls
-  # * baseURI - the URI to use as the base for relative
-  #   resolution
-  # return: array of absolute URIs
+  # [urls] array of string urls
+  # [baseURI] the URI to use as the base for relative resolution
+  # return:: array of absolute URIs
   def convertToAbsolute(urls,baseURI)
     result=[]
     urls.each {|url|
@@ -40,6 +39,7 @@ class Linkfinder
     return result
   end
 
+  # True if uri is in the same domain as domainURI
   def inDomain?(uri,domainURI)
       uri.host == domainURI.host
   end

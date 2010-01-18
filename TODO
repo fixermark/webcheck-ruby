@@ -1,3 +1,6 @@
 TODO: 
 
+* Complete documentation of modules
 * Add a chattiness option to Webcheck (and webcrawler) that can enable / disable message reporting (verbosity controller)
+* Improved output formatting options (XML, HTML, other formats)
+* Crawl more URL source types (img tags, link tags, script tags)

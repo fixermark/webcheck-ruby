@@ -2,11 +2,37 @@ require 'net/http'
 require 'uri' 
 require 'nokogiri'
 
+# Opens and reads pages via HTTP. The pages to read are driven by a provided
+# block, which serves as the logic for the crawl. The crawler does not track
+# recursive crawls; the provided block must be careful to avoid requesting
+# the same page repeatedly, or a crawl could become stuck on an infinite
+# cycle
+# 
+# == About the control block
+#
+# Most of the functions take a block that serves as the control block.
+# The block provided should take as arguments a URI and an HTTPResponse, 
+# and should yield a list of URIs to process in subsequent steps of the crawl.
+#
+# Usage example:
+#
+#   require 'linkfinder'
+#   require 'consistencychecker'
+#   require 'uri'
+#
+#   myURI=URI("http://example.com")
+#
+#   crawler=Webcrawler.new(myURI)
+#   checker=ConsistencyChecker.new(linkfinder,myURI)
+#   crawler.crawl{|uri,res|
+#     checker.check(uri,res)
+#   }
+
 class Webcrawler
 
   # Open a page and extract URLs from the page
-  # * uri - The URL to open (as a URI)
-  # returns: the HTTP request
+  # [uri] The URL to open (as an absolute URI)
+  # returns:: the HTTP response
   def retrievePage(uri)
     print "Retrieving ",uri,"\n"
     Net::HTTP::start(uri.host,uri.port) {|http|
@@ -27,10 +53,11 @@ class Webcrawler
     @toCrawl << @startURI
   end
 
-  # crawl a single page, updating the internal notions 
+  # crawl a single page, updating the internal state 
   # of which pages have been seen and which have not
   #
-  # * uri - The URI to crawl
+  # [uri] The URI to crawl
+  # [block] the control block
   def crawlOne(uri)
     @crawled[uri]=true
     req = retrievePage(uri)
@@ -45,8 +72,9 @@ class Webcrawler
   # crawl the next page that hasn't
   # been crawled
   #
-  # return: true if crawling should
-  # continue, false otherwise
+  # [blk] The control block
+  #
+  # return: true if crawling should continue, false otherwise
   def crawlNext(&blk)
     if @toCrawl.empty?
       return false
@@ -58,6 +86,8 @@ class Webcrawler
   
   # crawl all pages not yet crawled,
   # stopping when we run out
+  #
+  # [blk] The control block
   def crawl(&blk)
     while crawlNext(&blk)
     end

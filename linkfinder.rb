@@ -19,6 +19,11 @@ class Linkfinder
     doc.css('link').each do |link|
       result << link[:href]
     end
+    doc.css('script').each do |script|
+      if not script[:src].nil?
+        result << script[:src]
+      end
+    end
     result
   end
 

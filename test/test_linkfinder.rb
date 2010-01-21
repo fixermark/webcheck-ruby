@@ -93,9 +93,33 @@ EOF
   </html>
 EOF
 
-  def test_links_img
+  def test_links_stylesheet
     links = @linkfinder.getLinks(TestStylesheet)
     assert links.include?("http://example.com/stylesheet.css")
   end
+
+  TestScript=
+<<EOF
+  <html>
+  <head>
+  <script language="javascript"><!--
+     // this should be ignored
+  --></script>
+  <script language="javascript" src="http://example.com/script.js"/>
+  <title>Script extraction test case</title>
+  </head>
+  <body>
+  There is a script at the top of this page that should be found, and another
+  script that should not.
+  </body>
+  </html>
+EOF
+
+  def test_links_script
+    links = @linkfinder.getLinks(TestScript)
+    assert_equal 1, links.length
+    assert links.include?("http://example.com/script.js")
+  end
+
 
 end

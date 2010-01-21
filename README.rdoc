@@ -5,7 +5,7 @@ Webcheck-ruby is a simple web site crawler / checker, inspired by the Python pro
 == Features
 
 * fully automated
-* identifies broken links
+* identifies broken links, missing images, missing linked resources, and missing scripts
 * modular design allows for substitution of HTML link extractor, crawler, and page-validation rules
 
 == Usage

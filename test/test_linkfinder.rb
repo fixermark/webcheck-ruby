@@ -61,4 +61,23 @@ EOF
     assert absoluteURLs.include?(URI("http://example.com/target4.htm"))
     assert absoluteURLs.include?(URI("mailto:me@example.com"))
   end
+
+  TestImg=
+<<EOF
+  <html>
+  <head>
+  <title>Image URL extraction test case</title>
+  </head>
+  <body>
+  Here comes an image!
+  <img src="http://example.com/img.png"/>
+  </body>
+  </html>
+EOF
+  
+  def test_links_img
+    links = @linkfinder.getLinks(TestImg)
+    assert links.include?("http://example.com/img.png")
+  end
+
 end

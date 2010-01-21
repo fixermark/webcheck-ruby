@@ -13,10 +13,11 @@ Webcheck-ruby is a simple web site crawler / checker, inspired by the Python pro
 To crawl a web page:
 
   require 'webcheck'
-  results = Webcheck.check("http://example.com")
+  checker = Webcheck.new
+  results = checker.check("http://example.com")
   print results[:uris404]
   print results[:urisUnknown]
-  Webcheck.prettyPrint(results)
+  checker.prettyPrint(results)
 
 The default format of the results is a hash with the following keys
 

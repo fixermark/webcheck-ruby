@@ -80,4 +80,22 @@ EOF
     assert links.include?("http://example.com/img.png")
   end
 
+  TestStylesheet=
+<<EOF
+  <html>
+  <head>
+  <link href="http://example.com/stylesheet.css" rel="stylesheet" type="text/css"/>
+  <title>Stylesheet extraction test case</title>
+  </head>
+  <body>
+  There is a stylesheet at the top of this page that should get found.
+  </body>
+  </html>
+EOF
+
+  def test_links_img
+    links = @linkfinder.getLinks(TestStylesheet)
+    assert links.include?("http://example.com/stylesheet.css")
+  end
+
 end

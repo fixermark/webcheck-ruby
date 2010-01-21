@@ -16,6 +16,9 @@ class Linkfinder
     doc.css('img').each do |link|
       result << link[:src]
     end
+    doc.css('link').each do |link|
+      result << link[:href]
+    end
     result
   end
 
